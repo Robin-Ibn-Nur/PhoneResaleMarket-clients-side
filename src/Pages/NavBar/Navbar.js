@@ -10,6 +10,7 @@ const Navbar = () => {
         <li><Link to="/about">About</Link></li>
         <li><Link to="/reviews">Reviews</Link></li>
         <li><Link to="/login">Login</Link></li>
+        <li><Link to="/signup">SignUp</Link></li>
     </>
 
 
@@ -26,7 +27,7 @@ const Navbar = () => {
                         {menuItems}
                     </ul>
                 </div>
-                <Link to="/" className="btn btn-ghost normal-case text-xl">Doctors Portal</Link>
+                <Link to="/" className=" normal-case text-xl transition ease-in-out delay-150  hover:-translate-y-1 hover:scale-110  duration-300">Doctors Portal</Link>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal p-0">
