@@ -7,9 +7,9 @@ import ProductCategory from './ProductCategory';
 const Products = () => {
 
     const { data: products = [], isLoading } = useQuery({
-        queryKey: ['appointmentOptions'],
+        queryKey: ['products'],
         queryFn: async () => {
-            const res = await fetch('data.json');
+            const res = await fetch('http://localhost:5000/brandName');
             const data = await res.json();
             return data
         }
@@ -31,6 +31,7 @@ const Products = () => {
                         products?.map(product => <ProductCategory
                             key={product._id}
                             product={product}
+                            isLoading={isLoading}
                         ></ProductCategory>)
                     }
                 </div>

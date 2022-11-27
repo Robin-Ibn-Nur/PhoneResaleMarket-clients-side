@@ -1,6 +1,5 @@
 [
     {
-        "_id": 1,
         "categoryName": "Apple Phones",
         "categoryImage": "https://cdn-icons-png.flaticon.com/512/731/731985.png?w=740&t=st=1669369034~exp=1669369634~hmac=c29447beca5a1f6e406b04c7509d48fd5394370ed76e3e1c966ed77fc3ed64fe",
         "categoryItems": [
@@ -29,7 +28,6 @@
         ]
     },
     {
-        "_id": 2,
         "categoryName": "BlackBerry Phones",
         "categoryImage": "https://cdn-icons-png.flaticon.com/512/220/220798.png?w=740&t=st=1669441911~exp=1669442511~hmac=8c9b42733cd225e21dfd1ca601db162aa80e6f57539e033a1f39ce3c3b5ce162",
         "categoryItems": [
@@ -58,7 +56,6 @@
         ]
     },
     {
-        "_id": 3,
         "categoryName": "XIAOMI Phones",
         "categoryImage": "https://cdn-icons-png.flaticon.com/512/732/732261.png?w=740&t=st=1669442569~exp=1669443169~hmac=71b8a906183e1d95cbcfdee0bd9932fa63137501b971e2e9a66885f644d80d12",
         "categoryItems": [

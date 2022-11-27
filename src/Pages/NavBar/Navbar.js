@@ -1,16 +1,29 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import toast from 'react-hot-toast';
 
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../contexts/AuthProvider';
 
 const Navbar = () => {
+    const { user, logOut } = useContext(AuthContext);
+
+    const handleLogOut = () => {
+        logOut()
+            .then(() => { })
+            .catch(err => console.log(err));
+        toast.success('successfully Log out')
+    }
 
     const menuItems = <>
         <li><Link to="/">Home</Link></li>
-        <li><Link to="/appointment">Appointment</Link></li>
+        <li><Link to="/blog">Blog</Link></li>
         <li><Link to="/about">About</Link></li>
-        <li><Link to="/reviews">Reviews</Link></li>
-        <li><Link to="/login">Login</Link></li>
-        <li><Link to="/signup">SignUp</Link></li>
+        {user?.uid ?
+            <>
+                <li><Link to="/dashboard">Dashboard</Link></li>
+                <li><button onClick={handleLogOut}>Sign out</button></li>
+            </>
+            : <li><Link to="/login">Login</Link></li>}
     </>
 
 
@@ -27,7 +40,7 @@ const Navbar = () => {
                         {menuItems}
                     </ul>
                 </div>
-                <Link to="/" className=" normal-case text-xl transition ease-in-out delay-150  hover:-translate-y-1 hover:scale-110  duration-300">Doctors Portal</Link>
+                <Link to="/" className=" normal-case text-xl transition ease-in-out delay-150  hover:-translate-y-1 hover:scale-110  duration-300">Phone Resale Market</Link>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal p-0">

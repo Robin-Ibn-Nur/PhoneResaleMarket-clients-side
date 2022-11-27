@@ -1,30 +1,94 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
+import { Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../contexts/AuthProvider';
+import useToken from '../../hooks/useToken';
+import Google from '../Google/Google';
 
 const SignUp = () => {
-    return (
-        <div className="grid max-w-screen-xl grid-cols-1 gap-8 px-8 py-16 mx-auto rounded-lg md:grid-cols-2 md:px-12 lg:px-16 xl:px-32">
-            <div className="flex flex-col justify-between">
-                <div className="space-y-2">
-                    <h2 className="text-4xl font-bold leading-tight lg:text-5xl my-5">Sign Up</h2>
-                </div>
-                <img src="https://img.freepik.com/premium-psd/3d-sign-concept-illustration_380580-942.jpg?w=740" alt="" className="w-96 h-full" />
-            </div>
-            <form noValidate="" className="space-y-6 ng-untouched ng-pristine ng-valid">
-                <div>
-                    <label htmlFor="name" className="text-sm">Full name</label>
-                    <input id="name" type="text" placeholder="" className="w-full p-3 rounded dark:bg-gray-800" />
-                </div>
-                <div>
-                    <label htmlFor="email" className="text-sm">Email</label>
-                    <input id="email" type="email" className="w-full p-3 rounded dark:bg-gray-800" />
-                </div>
-                <div>
-                    <label htmlFor="email" className="text-sm">Email</label>
-                    <input id="email" type="email" className="w-full p-3 rounded dark:bg-gray-800" />
-                </div>
 
-                <button type="submit" className="w-full p-3 text-sm font-bold tracking-wide uppercase rounded dark:bg-purple-400 dark:text-gray-900">Send Message</button>
-            </form>
+    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { createUser, updateUser } = useContext(AuthContext);
+    const [createdUserEmail, setCreatedUserEmail] = useState('')
+    const [token] = useToken(createdUserEmail);
+    const navigate = useNavigate();
+
+    if (token) {
+        navigate('/');
+    }
+
+    const handleSignUp = (data) => {
+        createUser(data.email, data.password)
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+                toast('User Created Successfully.')
+                const userInfo = {
+                    displayName: data.name
+                }
+                updateUser(userInfo)
+                    .then(() => {
+                        saveUser(data.name, data.email);
+                    })
+                    .catch(err => console.log(err));
+            })
+            .catch(error => {
+                console.log(error)
+                toast.error(error.message)
+
+            });
+    }
+
+    const saveUser = (name, email) => {
+        const user = { name, email };
+        fetch('https://doctors-portal-server-rust.vercel.app/users', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+            .then(res => res.json())
+            .then(data => {
+                setCreatedUserEmail(email);
+            })
+    }
+    return (
+        <div className='h-[800px] flex justify-center items-center'>
+            <div className='w-96 p-7'>
+                <h2 className='text-xl text-center'>Sign Up</h2>
+                <form onSubmit={handleSubmit(handleSignUp)}>
+                    <div className="form-control w-full max-w-xs">
+                        <label className="label"> <span className="label-text">Name</span></label>
+                        <input type="text" {...register("name", {
+                            required: "Name is Required"
+                        })} className="input input-bordered w-full max-w-xs" />
+                        {errors.name && <p className='text-red-500'>{errors.name.message}</p>}
+                    </div>
+                    <div className="form-control w-full max-w-xs">
+                        <label className="label"> <span className="label-text">Email</span></label>
+                        <input type="email" {...register("email", {
+                            required: true
+                        })} className="input input-bordered w-full max-w-xs" />
+                        {errors.email && <p className='text-red-500'>{errors.email.message}</p>}
+                    </div>
+                    <div className="form-control w-full max-w-xs">
+                        <label className="label"> <span className="label-text">Password</span></label>
+                        <input type="password" {...register("password", {
+                            required: "Password is required",
+                            minLength: { value: 6, message: "Password must be 6 characters long" },
+
+                        })} className="input input-bordered w-full max-w-xs" />
+                        {errors.password && <p className='text-red-500'>{errors.password.message}</p>}
+                    </div>
+                    <input className='btn btn-accent w-full mt-4' value="Sign Up" type="submit" />
+                </form>
+                <p>Already have an account!  <Link className='text-white'
+                    to="/login">Please Login</Link></p>
+                <div className="divider">OR</div>
+                <Google></Google>
+            </div>
         </div>
     );
 };
