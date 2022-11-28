@@ -4,11 +4,13 @@ import SignUp from "../Login&SignUp/SignUp/SignUp";
 import DashboardMain from "../Main/DashboardMain";
 import Main from "../Main/Main";
 import AddProduct from "../Pages/Dashbord/AddProduct/AddProduct";
+import AllBuyers from "../Pages/Dashbord/AllBuyers";
 import AllSellers from "../Pages/Dashbord/AllSellers";
 import MyOrders from "../Pages/Dashbord/MyOrders/MyOrders";
 import MyProduct from "../Pages/Dashbord/MyProduct/MyProduct";
 import Home from "../Pages/Home/Home";
 import SecondHandProducts from "../Pages/Home/SecondHandProducts/SecondHandProducts";
+import AdminRoute from "./AdminRoute/AdminRoute";
 import PrivateRoute from "./PrivateRoute/PrivateRoute";
 
 export const router = createBrowserRouter([
@@ -46,7 +48,11 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/dashboard/allsellers',
-                element: <AllSellers></AllSellers>
+                element: <AdminRoute><AllSellers></AllSellers></AdminRoute>
+            },
+            {
+                path: '/dashboard/allbuyers',
+                element: <AdminRoute><AllBuyers></AllBuyers></AdminRoute>
             },
             {
                 path: '/dashboard/addproduct',

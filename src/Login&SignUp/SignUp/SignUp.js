@@ -4,6 +4,7 @@ import toast from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider';
 import useToken from '../../hooks/useToken';
+import Loader from '../../Spinner/Loader';
 import Google from '../Google/Google';
 
 const SignUp = () => {
@@ -16,6 +17,7 @@ const SignUp = () => {
 
     if (token) {
         navigate('/');
+        return <Loader></Loader>
     }
 
     const handleSignUp = (data) => {
@@ -43,7 +45,7 @@ const SignUp = () => {
     const saveUser = (name, email) => {
         const user = { name, email };
         fetch('http://localhost:5000/users', {
-            method: 'POST',
+            method: 'PUT',
             headers: {
                 'content-type': 'application/json'
             },

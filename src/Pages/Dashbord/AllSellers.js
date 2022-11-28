@@ -1,9 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
+import React, { useContext } from 'react';
 import toast from 'react-hot-toast';
+import { AuthContext } from '../../contexts/AuthProvider';
+import Loader from '../../Spinner/Loader';
 
 const AllSellers = () => {
-    const { data: users = [], refetch } = useQuery({
+    const { user } = useContext(AuthContext);
+    const { data: users = [], refetch, isLoading } = useQuery({
         queryKey: ['users'],
         queryFn: async () => {
             const res = await fetch('http://localhost:5000/users');
@@ -12,6 +15,10 @@ const AllSellers = () => {
             return data;
         }
     });
+
+    if (user && isLoading) {
+        return <Loader></Loader>
+    }
 
     const handleMakeAdmin = id => {
         fetch(`http://localhost:5000/users/admin/${id}`, {
@@ -31,7 +38,7 @@ const AllSellers = () => {
 
     return (
         <div>
-            <h2 className="text-3xl">All Users</h2>
+            <h2 className="text-3xl text-center my-5 underline italic">All Seller</h2>
             <div className="overflow-x-auto">
                 <table className="table w-full">
                     <thead>
