@@ -10,8 +10,8 @@ const SignUp = () => {
 
     const { register, handleSubmit, formState: { errors } } = useForm();
     const { createUser, updateUser } = useContext(AuthContext);
-    const [createdUserEmail, setCreatedUserEmail] = useState('')
-    const [token] = useToken(createdUserEmail);
+    const [UserEmail, setUserEmail] = useState('')
+    const [token] = useToken(UserEmail);
     const navigate = useNavigate();
 
     if (token) {
@@ -23,7 +23,7 @@ const SignUp = () => {
             .then(result => {
                 const user = result.user;
                 console.log(user);
-                toast('User Created Successfully.')
+                toast.success('Welcome to The Phone Resale Market')
                 const userInfo = {
                     displayName: data.name
                 }
@@ -42,7 +42,7 @@ const SignUp = () => {
 
     const saveUser = (name, email) => {
         const user = { name, email };
-        fetch('https://doctors-portal-server-rust.vercel.app/users', {
+        fetch('http://localhost:5000/users', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -51,7 +51,8 @@ const SignUp = () => {
         })
             .then(res => res.json())
             .then(data => {
-                setCreatedUserEmail(email);
+                console.log(data);
+                setUserEmail(email);
             })
     }
     return (
@@ -82,7 +83,7 @@ const SignUp = () => {
                         })} className="input input-bordered w-full max-w-xs" />
                         {errors.password && <p className='text-red-500'>{errors.password.message}</p>}
                     </div>
-                    <input className='btn btn-accent w-full mt-4' value="Sign Up" type="submit" />
+                    <input className='btn btn-outline w-full mt-4' value="Sign Up" type="submit" />
                 </form>
                 <p>Already have an account!  <Link className='text-white'
                     to="/login">Please Login</Link></p>

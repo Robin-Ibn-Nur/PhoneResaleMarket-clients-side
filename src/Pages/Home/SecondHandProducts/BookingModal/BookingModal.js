@@ -1,10 +1,12 @@
 import React, { useContext } from 'react';
+import toast from 'react-hot-toast';
 import { AuthContext } from '../../../../contexts/AuthProvider';
 
 const BookingModal = ({ phoneInformation, setPhoneInformation }) => {
 
     const { user } = useContext(AuthContext)
-    const { productName, originalPrice, resalePrice } = phoneInformation
+    const { productName, originalPrice, resalePrice, image } = phoneInformation
+    console.log(phoneInformation.image);
     const handleBooking = event => {
         event.preventDefault();
         const form = event.target;
@@ -13,14 +15,15 @@ const BookingModal = ({ phoneInformation, setPhoneInformation }) => {
         const phone = form.phone.value;
 
         const booking = {
+            productName,
             name,
+            image,
             email,
             phone,
             price: resalePrice
         }
-        console.log(booking);
 
-        // TODO: send data to the server
+        // sending data to the server
         // and once data is saved then close the modal 
         // and display success toast
         fetch('http://localhost:5000/bookings', {
@@ -32,14 +35,13 @@ const BookingModal = ({ phoneInformation, setPhoneInformation }) => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
                 if (data.acknowledged) {
                     setPhoneInformation(null)
                     toast.success('Booking confirmed');
 
                 }
                 else {
-                    toast.error(data.message);
+                    toast.error('Something is wrong');
                 }
             })
 
