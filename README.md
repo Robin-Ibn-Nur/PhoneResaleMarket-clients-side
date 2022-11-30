@@ -1,7 +1,6 @@
-#adminEmail saif@gmail.com
-#password 123456
+- adminEmail saif@gmail.com
+- adminPassword 123456
 
-#vercel link ["https://server-side-lime.vercel.app/"]
 adminEmail: <your admin email>
 
 adminPassword: <your admin password>
@@ -10,7 +9,7 @@ adminPassword: <your admin password>
 
 #Welcome To My Repository
 
-Kind your information BackPacker is a Travel Lover
+Kind your information Phone Resale Market is a small e-commerce website
 
 
 Navbar Details:
