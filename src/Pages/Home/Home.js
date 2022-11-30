@@ -1,6 +1,4 @@
 import { useQuery } from '@tanstack/react-query';
-import React, { useContext } from 'react';
-import { AuthContext } from '../../contexts/AuthProvider';
 import Loader from '../../Spinner/Loader';
 import AdvertisedItems from './AdvertisedItems/AdvertisedItems';
 import Banner from './Banner/Banner';
