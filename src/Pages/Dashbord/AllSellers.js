@@ -38,7 +38,12 @@ const AllSellers = () => {
 
     return (
         <div>
-            <h2 className="text-3xl text-center my-5 underline italic">All Seller</h2>
+            {
+                user ?
+                    <h2 className="text-3xl text-center my-5 underline italic">All Users</h2>
+                    :
+                    <h1 className="text-3xl text-center my-5 underline italic">No Seller or Buyer loged In yet</h1>
+            }
             <div className="overflow-x-auto">
                 <table className="table w-full">
                     <thead>
@@ -56,7 +61,14 @@ const AllSellers = () => {
                                 <th>{i + 1}</th>
                                 <td>{user.name}</td>
                                 <td>{user.email}</td>
-                                <td>{user?.role !== 'admin' && <button onClick={() => handleMakeAdmin(user._id)} className='btn btn-xs btn-primary'>Make Admin</button>}</td>
+                                <td>
+                                    {
+                                        user?.role !== "verified" ?
+                                            <button onClick={() => handleMakeAdmin(user._id)} className='btn btn-outline'>Verify User
+                                            </button>
+                                            : <span className='rounded text-xl' >Verified ✔</span>
+                                    }
+                                </td>
                                 <td><button className='btn btn-xs btn-danger'>Delete</button></td>
                             </tr>)
                         }

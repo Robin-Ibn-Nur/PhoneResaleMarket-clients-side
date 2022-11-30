@@ -105,17 +105,6 @@ const MyProduct = () => {
                 >
                 </DeleteConfirmationModal>
             }
-            {/* {
-                deletingDoctor && <ConfirmationModal
-                    title={`Are you sure you want to delete?`}
-                    message={`If you delete ${deletingDoctor.name}. It cannot be undone.`}
-                    successAction={handleDeleteDoctor}
-                    successButtonName="Delete"
-                    modalData={deletingDoctor}
-                    closeModal={closeModal}
-                >
-                </ConfirmationModal>
-            } */}
         </div>
     );
 };

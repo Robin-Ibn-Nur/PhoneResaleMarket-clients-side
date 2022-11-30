@@ -1,10 +1,11 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider';
 import useToken from '../../hooks/useToken';
+import Loader from '../../Spinner/Loader';
 import Google from '../Google/Google';
 
 const Login = () => {
@@ -14,16 +15,20 @@ const Login = () => {
     const [loginUserEmail, setLoginUserEmail] = useState('');
     const [token] = useToken(loginUserEmail);
 
-    
+
     const location = useLocation();
     const navigate = useNavigate();
 
     const from = location.state?.from?.pathname || '/';
 
 
-    if (token) {
-        navigate(from, { replace: true });
-    }
+    useEffect(() => {
+        if (token) {
+            <Loader></Loader>
+            toast.success("You have successFully Loged In")
+            navigate(from, { replace: true });
+        }
+    }, [from, navigate, token])
 
     const handleLogin = data => {
         console.log(data);
@@ -40,7 +45,7 @@ const Login = () => {
             });
     }
 
-    
+
     return (
         <div className='h-[600px] flex justify-center items-center'>
             <div className='w-96 p-7'>

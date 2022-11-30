@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
@@ -14,28 +14,22 @@ const SignUp = () => {
     const [UserEmail, setUserEmail] = useState('')
     const [token] = useToken(UserEmail);
     const navigate = useNavigate();
-    const [seller, setSeller] = useState(null)
-    const [buyer, setBuyer] = useState(null)
-    if (seller) {
-        console.log(seller)
-    } else if (buyer) {
-        console.log(buyer)
-    }
 
-    // if (token) {
-    //     navigate('/');
 
-    // }
+    useEffect(() => {
+        if (token) {
+            <Loader></Loader>
+            navigate('/');
+            toast.success('Welcome to The Phone Resale Market')
+
+        }
+    }, [navigate, token])
 
     const handleSignUp = (data) => {
-        console.log(data.category)
-        const role = data.category;
-        console.log(role);
         createUser(data.email, data.password)
             .then(result => {
                 const user = result.user;
                 console.log(user);
-                toast.success('Welcome to The Phone Resale Market')
                 const userInfo = {
                     displayName: data.name,
 
@@ -43,21 +37,19 @@ const SignUp = () => {
                 console.log(userInfo);
                 updateUser(userInfo)
                     .then(() => {
-                        saveUser(data.name, data.email, role);
-                        // saveSeller(data.name, data.email)
-                        // saveBuyer(data.name, data.email)
+                        saveUser(data.name, data.email, data.category);
                     })
                     .catch(err => console.log(err));
             })
-        .catch(error => {
-            console.log(error)
-            toast.error(error.message)
+            .catch(error => {
+                console.log(error)
+                toast.error(error.message)
 
-        });
+            });
     }
 
     const saveUser = (name, email, category) => {
-        const user = { name, email, category };
+        const user = { name, email, role: category };
         fetch('http://localhost:5000/users', {
             method: 'PUT',
             headers: {
@@ -70,38 +62,6 @@ const SignUp = () => {
                 setUserEmail(email);
             })
     }
-    // const saveSeller = (name, email) => {
-    //     const seller = { name, email };
-    //     console.log(seller)
-    //     fetch('http://localhost:5000/seller', {
-    //         method: 'PUT',
-    //         headers: {
-    //             'content-type': 'application/json'
-    //         },
-    //         body: JSON.stringify(seller)
-    //     })
-    //         .then(res => res.json())
-    //         .then(data => {
-    //             console.log(data);
-    //             setUserEmail(email);
-    //         })
-    // }
-    // const saveBuyer = (name, email) => {
-    //     const buyer = { name, email };
-    //     console.log(buyer)
-    //     fetch('http://localhost:5000/buyer', {
-    //         method: 'PUT',
-    //         headers: {
-    //             'content-type': 'application/json'
-    //         },
-    //         body: JSON.stringify(buyer)
-    //     })
-    //         .then(res => res.json())
-    //         .then(data => {
-    //             console.log(data);
-    //             setUserEmail(email);
-    //         })
-    // }
     return (
         <div className='h-[800px] flex justify-center items-center'>
             <div className='w-96 p-7'>

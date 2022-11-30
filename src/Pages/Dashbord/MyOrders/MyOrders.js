@@ -24,7 +24,11 @@ const MyOrders = () => {
     }
     return (
         <div>
-            <h1 className='text-center text-3xl font-bold my-5 italic border'>{user?.displayName}'s Orders</h1>
+            {/* <h1 className='text-center text-3xl font-bold my-5 italic border'>
+                {user?.displayName}'s Orders</h1> */}
+            {
+                user?.displayName ? <h1 className='text-center text-3xl font-bold my-5 italic border'>{user?.displayName}'s Orders</h1> : ""
+            }
             <div className="overflow-x-auto w-full">
                 <table className="table w-full">
                     <thead>

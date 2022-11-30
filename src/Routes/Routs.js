@@ -3,6 +3,7 @@ import Login from "../Login&SignUp/LogIn/LogIn";
 import SignUp from "../Login&SignUp/SignUp/SignUp";
 import DashboardMain from "../Main/DashboardMain";
 import Main from "../Main/Main";
+import Blog from "../Pages/Blog/Blog";
 import ErrorPage from "../Pages/colorlib-error-404-6/ErrorPage";
 import AddProduct from "../Pages/Dashbord/AddProduct/AddProduct";
 import AllBuyers from "../Pages/Dashbord/AllBuyers";
@@ -28,6 +29,10 @@ export const router = createBrowserRouter([
             {
                 path: '/login',
                 element: <Login></Login>
+            },
+            {
+                path: '/blog',
+                element: <Blog></Blog>
             },
             {
                 path: '/signup',
