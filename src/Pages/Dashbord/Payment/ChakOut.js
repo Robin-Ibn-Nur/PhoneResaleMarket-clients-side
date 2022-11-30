@@ -22,7 +22,7 @@ const ChakOut = ({ bookings }) => {
 
     useEffect(() => {
         // Create PaymentIntent as soon as the page loads
-        fetch("http://localhost:5000/create-payment-intent", {
+        fetch("https://server-side-lime.vercel.app/create-payment-intent", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ price }),
@@ -91,7 +91,7 @@ const ChakOut = ({ bookings }) => {
                 phone,
                 bookingId: _id
             }
-            fetch('http://localhost:5000/payments', {
+            fetch('https://server-side-lime.vercel.app/payments', {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json',

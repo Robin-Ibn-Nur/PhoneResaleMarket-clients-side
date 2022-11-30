@@ -1,6 +1,4 @@
 import React from 'react';
-import { useQuery } from '@tanstack/react-query';
-import Loader from '../../../Spinner/Loader'
 import ProductCategory from './ProductCategory';
 
 
@@ -9,7 +7,7 @@ const Products = ({ products, isLoading }) => {
     // const { data: products = [], isLoading } = useQuery({
     //     queryKey: ['products'],
     //     queryFn: async () => {
-    //         const res = await fetch('http://localhost:5000/brandName');
+    //         const res = await fetch('https://server-side-lime.vercel.app/brandName');
     //         const data = await res.json();
     //         return data
     //     }

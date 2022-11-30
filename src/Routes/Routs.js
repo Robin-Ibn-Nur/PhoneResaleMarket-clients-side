@@ -41,7 +41,7 @@ export const router = createBrowserRouter([
             {
                 path: '/secondHandProducts/:id',
                 element: <PrivateRoute><SecondHandProducts></SecondHandProducts></PrivateRoute>,
-                loader: ({ params }) => fetch(`http://localhost:5000/brandName/${params.id}`)
+                loader: ({ params }) => fetch(`https://server-side-lime.vercel.app/brandName/${params.id}`)
             }
 
         ]
@@ -76,9 +76,9 @@ export const router = createBrowserRouter([
             {
                 path: '/dashboard/payment/:id',
                 element: <Payment></Payment>,
-                loader:({params}) => fetch(`http://localhost:5000/bookings/${params.id}`)
-                // loader: ({ params }) => fetch(`http://localhost:5000/bookings/${params.id}`)
-                // loader: ({ params }) => fetch(`http://localhost:5000/bookings/${params.id}`, {
+                loader: ({ params }) => fetch(`https://server-side-lime.vercel.app/bookings/${params.id}`)
+                // loader: ({ params }) => fetch(`https://server-side-lime.vercel.app/bookings/${params.id}`)
+                // loader: ({ params }) => fetch(`https://server-side-lime.vercel.app/bookings/${params.id}`, {
                 //     // headers: {
                 //     //     authorization: `bearer ${localStorage.getItem('accessToken')}`
                 //     // }

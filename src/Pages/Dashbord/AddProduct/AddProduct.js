@@ -15,7 +15,7 @@ const AddProduct = () => {
     const { data: categoryName = [], isLoading } = useQuery({
         queryKey: ['categoryName'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/brandNameCategory');
+            const res = await fetch('https://server-side-lime.vercel.app/brandNameCategory');
             const data = await res.json();
             return data
         }
@@ -49,7 +49,7 @@ const AddProduct = () => {
                     }
 
                     // save seller product information to the database
-                    fetch('http://localhost:5000/sellerProduct', {
+                    fetch('https://server-side-lime.vercel.app/sellerProduct', {
                         method: 'POST',
                         headers: {
                             'content-type': 'application/json',

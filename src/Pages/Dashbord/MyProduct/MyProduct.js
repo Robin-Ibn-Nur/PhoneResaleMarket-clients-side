@@ -17,7 +17,7 @@ const MyProduct = () => {
         queryKey: ['sellerProduct'],
         queryFn: async () => {
             try {
-                const res = await fetch('http://localhost:5000/sellerProduct', {
+                const res = await fetch('https://server-side-lime.vercel.app/sellerProduct', {
                     headers: {
                         authorization: `bearer ${localStorage.getItem('accessToken')}`
                     }
@@ -33,7 +33,7 @@ const MyProduct = () => {
 
 
     const handleDeleteProduct = product => {
-        axios(`http://localhost:5000/sellerProduct/${product._id}`, {
+        axios(`https://server-side-lime.vercel.app/sellerProduct/${product._id}`, {
             method: 'DELETE',
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
@@ -42,7 +42,7 @@ const MyProduct = () => {
             .then(res => {
                 if (res.data.deletedCount > 0) {
                     refetch();
-                    toast.success(`Doctor ${product.productName} deleted successfully`)
+                    toast.success(`Product ${product.productName} deleted successfully`)
                 }
             })
     }

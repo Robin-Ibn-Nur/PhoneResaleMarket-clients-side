@@ -50,7 +50,7 @@ const SignUp = () => {
 
     const saveUser = (name, email, category) => {
         const user = { name, email, role: category };
-        fetch('http://localhost:5000/users', {
+        fetch('https://server-side-lime.vercel.app/users', {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'

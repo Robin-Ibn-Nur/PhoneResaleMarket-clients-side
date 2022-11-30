@@ -9,7 +9,7 @@ const AllSellers = () => {
     const { data: users = [], refetch, isLoading } = useQuery({
         queryKey: ['users'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/users');
+            const res = await fetch('https://server-side-lime.vercel.app/users');
             const data = await res.json();
             console.log(data)
             return data;
@@ -20,8 +20,8 @@ const AllSellers = () => {
         return <Loader></Loader>
     }
 
-    const handleMakeAdmin = id => {
-        fetch(`http://localhost:5000/users/admin/${id}`, {
+    const handleMakeVerifyed = id => {
+        fetch(`https://server-side-lime.vercel.app/users/admin/${id}`, {
             method: 'PUT',
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
@@ -64,7 +64,7 @@ const AllSellers = () => {
                                 <td>
                                     {
                                         user?.role !== "verified" ?
-                                            <button onClick={() => handleMakeAdmin(user._id)} className='btn btn-outline'>Verify User
+                                            <button onClick={() => handleMakeVerifyed(user._id)} className='btn btn-outline'>Verify User
                                             </button>
                                             : <span className='rounded text-xl' >Verified ✔</span>
                                     }
