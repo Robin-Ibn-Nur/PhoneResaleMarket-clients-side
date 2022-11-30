@@ -18,9 +18,6 @@ const Home = () => {
     if (isLoading) {
         return <Loader></Loader>
     }
-    // if (user && loading) {
-    //     return <Loader> </Loader>
-    // }
     return (
         <div>
             <Banner></Banner>
