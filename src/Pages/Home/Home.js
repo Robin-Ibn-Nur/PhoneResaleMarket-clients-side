@@ -8,7 +8,6 @@ import Feedback from './ExtraSection/Feedback';
 import Products from './Products/Products';
 
 const Home = () => {
-    const { user, loading } = useContext(AuthContext)
     const { data: products = [], isLoading } = useQuery({
         queryKey: ['products'],
         queryFn: async () => {
