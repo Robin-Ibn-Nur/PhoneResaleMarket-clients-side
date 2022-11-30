@@ -1,9 +1,9 @@
 - adminEmail saif@gmail.com
 - adminPassword 123456
 
-adminEmail: <your admin email>
+adminEmail: <saif@gmail.com>
 
-adminPassword: <your admin password>
+adminPassword: <123456>
 
 #Hi Myself RoBiN
 
