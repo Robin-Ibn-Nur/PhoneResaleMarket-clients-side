@@ -1,23 +1,20 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthProvider';
 import Loader from '../../../Spinner/Loader';
 
 const MyOrders = () => {
     const { user } = useContext(AuthContext);
 
-    const url = `http://localhost:5000/bookings?email=${user?.email}`;
 
-    const { data: bookings = [], isLoading } = useQuery({
+    const { data: bookings, isLoading } = useQuery({
         queryKey: ['bookings', user?.email],
         queryFn: async () => {
-            const res = await fetch(url, {
-                headers: {
-                    authorization: `bearer ${localStorage.getItem('accessToken')}`
-                }
+            const res = await fetch(`http://localhost:5000/bookings?email=${user?.email}`, {
             });
             const data = await res.json();
-            console.log(data);
+            console.log(data)
             return data;
         }
     })
@@ -27,7 +24,7 @@ const MyOrders = () => {
     }
     return (
         <div>
-            <h1 className='text-center font-bold'>My Orders</h1>
+            <h1 className='text-center text-3xl font-bold my-5 italic border'>{user?.displayName}'s Orders</h1>
             <div className="overflow-x-auto w-full">
                 <table className="table w-full">
                     <thead>
@@ -40,7 +37,7 @@ const MyOrders = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {
+                        {bookings &&
                             bookings?.map((booking, i) =>
                                 <tr key={booking._id}>
 
@@ -52,10 +49,6 @@ const MyOrders = () => {
                                                     <img src={booking?.image} alt="Avatar Tailwind CSS Component" />
                                                 </div>
                                             </div>
-                                            {/* <div>
-                                                <div className="font-bold">Hart Hagerty</div>
-                                                <div className="text-sm opacity-50">United States</div>
-                                            </div> */}
                                         </div>
                                     </td>
                                     <td>
@@ -63,7 +56,16 @@ const MyOrders = () => {
                                     </td>
                                     <td>{booking?.price}</td>
                                     <td>
-                                        <button className="btn btn-ghost btn-xs">Pay</button>
+                                        {
+                                            booking.price && !booking.paid &&
+                                            <Link
+                                                to={`/dashboard/payment/${booking._id}`}>
+                                                <button className="btn  btn-outline w-full text-2xl">Pay</button>
+                                            </Link>
+                                        }
+                                        {
+                                            booking.price && booking.paid && <button className="btn btn-outline w-full text-2xl" disabled>Paid ✔</button>
+                                        }
                                     </td>
                                 </tr>)
                         }

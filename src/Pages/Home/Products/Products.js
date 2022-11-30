@@ -4,20 +4,20 @@ import Loader from '../../../Spinner/Loader'
 import ProductCategory from './ProductCategory';
 
 
-const Products = () => {
+const Products = ({ products, isLoading }) => {
 
-    const { data: products = [], isLoading } = useQuery({
-        queryKey: ['products'],
-        queryFn: async () => {
-            const res = await fetch('http://localhost:5000/brandName');
-            const data = await res.json();
-            return data
-        }
-    });
+    // const { data: products = [], isLoading } = useQuery({
+    //     queryKey: ['products'],
+    //     queryFn: async () => {
+    //         const res = await fetch('http://localhost:5000/brandName');
+    //         const data = await res.json();
+    //         return data
+    //     }
+    // });
 
-    if (isLoading) {
-        return <Loader></Loader>
-    }
+    // if (isLoading) {
+    //     return <Loader></Loader>
+    // }
     return (
 
         <section className="py-6 sm:py-12 dark:bg-gray-800 dark:text-gray-100">

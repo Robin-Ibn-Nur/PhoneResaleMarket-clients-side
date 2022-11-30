@@ -1,18 +1,20 @@
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider';
 import useToken from '../../hooks/useToken';
-import Loader from '../../Spinner/Loader';
 import Google from '../Google/Google';
 
-const LogIn = () => {
+const Login = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
-    const { signIn, loading } = useContext(AuthContext);
+    const { signIn } = useContext(AuthContext);
     const [loginError, setLoginError] = useState('');
     const [loginUserEmail, setLoginUserEmail] = useState('');
     const [token] = useToken(loginUserEmail);
+
+    
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -21,8 +23,6 @@ const LogIn = () => {
 
     if (token) {
         navigate(from, { replace: true });
-    } else if (loading) {
-        return <Loader></Loader>
     }
 
     const handleLogin = data => {
@@ -39,6 +39,8 @@ const LogIn = () => {
                 setLoginError(error.message);
             });
     }
+
+    
     return (
         <div className='h-[600px] flex justify-center items-center'>
             <div className='w-96 p-7'>
@@ -77,4 +79,4 @@ const LogIn = () => {
     );
 };
 
-export default LogIn;
+export default Login;

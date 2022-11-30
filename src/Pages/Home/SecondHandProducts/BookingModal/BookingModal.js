@@ -6,7 +6,7 @@ const BookingModal = ({ phoneInformation, setPhoneInformation }) => {
 
     const { user } = useContext(AuthContext)
     const { productName, originalPrice, resalePrice, image } = phoneInformation
-    console.log(phoneInformation.image);
+
     const handleBooking = event => {
         event.preventDefault();
         const form = event.target;

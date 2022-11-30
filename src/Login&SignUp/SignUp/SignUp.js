@@ -14,36 +14,50 @@ const SignUp = () => {
     const [UserEmail, setUserEmail] = useState('')
     const [token] = useToken(UserEmail);
     const navigate = useNavigate();
-
-    if (token) {
-        navigate('/');
-        return <Loader></Loader>
+    const [seller, setSeller] = useState(null)
+    const [buyer, setBuyer] = useState(null)
+    if (seller) {
+        console.log(seller)
+    } else if (buyer) {
+        console.log(buyer)
     }
 
+    // if (token) {
+    //     navigate('/');
+
+    // }
+
     const handleSignUp = (data) => {
+        console.log(data.category)
+        const role = data.category;
+        console.log(role);
         createUser(data.email, data.password)
             .then(result => {
                 const user = result.user;
                 console.log(user);
                 toast.success('Welcome to The Phone Resale Market')
                 const userInfo = {
-                    displayName: data.name
+                    displayName: data.name,
+
                 }
+                console.log(userInfo);
                 updateUser(userInfo)
                     .then(() => {
-                        saveUser(data.name, data.email);
+                        saveUser(data.name, data.email, role);
+                        // saveSeller(data.name, data.email)
+                        // saveBuyer(data.name, data.email)
                     })
                     .catch(err => console.log(err));
             })
-            .catch(error => {
-                console.log(error)
-                toast.error(error.message)
+        .catch(error => {
+            console.log(error)
+            toast.error(error.message)
 
-            });
+        });
     }
 
-    const saveUser = (name, email) => {
-        const user = { name, email };
+    const saveUser = (name, email, category) => {
+        const user = { name, email, category };
         fetch('http://localhost:5000/users', {
             method: 'PUT',
             headers: {
@@ -53,15 +67,56 @@ const SignUp = () => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
                 setUserEmail(email);
             })
     }
+    // const saveSeller = (name, email) => {
+    //     const seller = { name, email };
+    //     console.log(seller)
+    //     fetch('http://localhost:5000/seller', {
+    //         method: 'PUT',
+    //         headers: {
+    //             'content-type': 'application/json'
+    //         },
+    //         body: JSON.stringify(seller)
+    //     })
+    //         .then(res => res.json())
+    //         .then(data => {
+    //             console.log(data);
+    //             setUserEmail(email);
+    //         })
+    // }
+    // const saveBuyer = (name, email) => {
+    //     const buyer = { name, email };
+    //     console.log(buyer)
+    //     fetch('http://localhost:5000/buyer', {
+    //         method: 'PUT',
+    //         headers: {
+    //             'content-type': 'application/json'
+    //         },
+    //         body: JSON.stringify(buyer)
+    //     })
+    //         .then(res => res.json())
+    //         .then(data => {
+    //             console.log(data);
+    //             setUserEmail(email);
+    //         })
+    // }
     return (
         <div className='h-[800px] flex justify-center items-center'>
             <div className='w-96 p-7'>
                 <h2 className='text-xl text-center'>Sign Up</h2>
                 <form onSubmit={handleSubmit(handleSignUp)}>
+                    <div className="form-control w-full">
+                        <label className="label"> <span className="label-text">Select Category</span></label>
+                        <select {...register("category", {
+                            required: "Option is Required"
+                        })}
+                            className="select input-bordered w-full">
+                            <option>Seller</option>
+                            <option>Buyer</option>
+                        </select>
+                    </div>
                     <div className="form-control w-full max-w-xs">
                         <label className="label"> <span className="label-text">Name</span></label>
                         <input type="text" {...register("name", {
