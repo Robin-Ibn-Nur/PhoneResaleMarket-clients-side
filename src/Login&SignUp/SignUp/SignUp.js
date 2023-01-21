@@ -15,15 +15,14 @@ const SignUp = () => {
     const [token] = useToken(UserEmail);
     const navigate = useNavigate();
 
+    // useEffect(() => {
+    //     if (token) {
+    //         <Loader></Loader>
+    //         navigate('/');
+    //         toast.success('Welcome to The Phone Resale Market')
 
-    useEffect(() => {
-        if (token) {
-            <Loader></Loader>
-            navigate('/');
-            toast.success('Welcome to The Phone Resale Market')
-
-        }
-    }, [navigate, token])
+    //     }
+    // }, [navigate, token])
 
     const handleSignUp = (data) => {
         createUser(data.email, data.password)
@@ -50,7 +49,8 @@ const SignUp = () => {
 
     const saveUser = (name, email, category) => {
         const user = { name, email, role: category };
-        fetch('https://server-side-lime.vercel.app/users', {
+        console.log(user);
+        fetch('http://localhost:5000/users', {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'
@@ -77,6 +77,28 @@ const SignUp = () => {
                             <option>Buyer</option>
                         </select>
                     </div>
+                    {/* <div className="">
+                        <label>
+                            <input
+                                type="radio"
+                                name="role"
+                                value="buyer"
+                                checked={role === 'buyer'}
+                                onChange={handleRoleChange}
+                            />
+                            Buyer
+                        </label>
+                        <label>
+                            <input
+                                type="radio"
+                                name="role"
+                                value="seller"
+                                checked={role === 'seller'}
+                                onChange={handleRoleChange}
+                            />
+                            Seller
+                        </label>
+                    </div> */}
                     <div className="form-control w-full max-w-xs">
                         <label className="label"> <span className="label-text">Name</span></label>
                         <input type="text" {...register("name", {

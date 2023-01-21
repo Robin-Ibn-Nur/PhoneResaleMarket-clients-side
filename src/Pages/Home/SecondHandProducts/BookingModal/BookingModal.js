@@ -13,6 +13,7 @@ const BookingModal = ({ phoneInformation, setPhoneInformation }) => {
         const name = form.name.value;
         const email = form.email.value;
         const phone = form.phone.value;
+        // git transfer added
 
         const booking = {
             productName,
